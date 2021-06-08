@@ -1,0 +1,178 @@
+﻿
+/************* Teknik Servis Önemli Notlar *******************/
+
+NOT: İconPichon programı ile güzel bedeva iconlar seçilip projede kullanılabilir
+
+=> RibbonControl = Üst menüyü eklemek için kullanılır
+
+=> Mdi : toobox kısmında mdi yazarak bul ve sürükle. Üst menüdeki sekmelere basınca açılabilmesi için alttaki sayfa bölgesini temsil eder.
+
+=> GroupControl : label,text,combobox gibi yapıları bir arada tutup güzel gözükmesini sağlar
+
+=> Panel : Bootstrapdeki Card'lara karşılık gelir
+
+=> LookUpEdit: Dropdown ve Combobox'un karşılığıdır.
+
+=> SimpleButton: Button değerinin karşlığıdır.
+
+=> GridControl: Gridview değerinin karşılığıdır.
+
+**** GridControl içerisindeki değerlere basınca textbox içerisinde gösterme
+
+=> Bunu yapabilmek için GridControl'bas ve gridview seçeneğinden eventlarında focusrow kısmının seçilmesi gerekmektedir.
+
+**************************************************************************
+
+/****** LookUpEdit (Dropdownlist)içerisine değeri getirme *************/
+
+=> LookUpEdit içerinde ok sekmesine bas ve DisplayMember ve ValueMember alanlarını veritabanındaki karşılıklarını yaz. DisplayMember kullanıcının ekranda göreceği kısımdır. ValueMember ise kullanıcı tarafından gözükmez genellikle ID değerlerini saklamak için kullanılır
+
+
+************************************************************************
+
+/********************* Yeni Ürünü Popup ile Ekleme ***********************/
+
+=> Yeni bir winforms oluşturulur.
+=> Toolbox içerisinden PictureEdit bulunup forma sürüklenir.
+=> PictureEdit'te ok tuşuna basıp chhoseImage'dan istenilen resim seçilir
+=> PictureEdit deki resmi Properties/Dock bölümünden durumu ayarlanabilir.
+=> PictureEdit'in arka planını renklendirmek için Flatuicolors programından faydalınabilir
+
+***************************************************************************
+
+/******************** FrmMarkalar formu ***********************************/
+
+=> grafik eklemek için ilk önce PanelControl ardından da PanelControl'ün içerisine ChartControl eklenir. ChartContol içerisinden series kısmına basılarak Chart'ın tipi seçilir ve ok tuşuna basılır.
+
+=> grafik  renklendirmesinde grafikteki elemanların adını getirmek için;
+ChartControl'e bas/Ok tuşu/Series/Properties/LegendTextPattern kısmına {A} değerini yazınca grafikteki değerlerin adlarını gösterir.
+
+=> grafikteki renklendirmeleri değiştirmek için grafiğe bas Properties/PaletteName kısmından istediğin renkleri ver. 
+
+
+
+*****************************************************************************
+
+/************************ FrmCariFormu *************************************/
+
+=> Telefon ,email gibi değerlerin telefon ya da email formatında gözükmesi için textbox üzerindeki ok/Mask Type/Simple içerisinden telefon vb. kuralları koyabilirsin.
+
+*****************************************************************************
+
+
+/****************** FrmCariİlİstatistiği *********************************/
+
+=> grafiğe carilerin bulunduğu illeri çekmek için Dataset işlemi yaptık.
+
+=> Dataset işlemi yapmak için Project/Add New DataSource/Next/Next/New Connection/Cancel adımı uygulanır. Connection string kopyalanarak Cancele basılır.
+
+
+*****************************************************************************
+
+
+/************************ FrmCariEkle Formu ********************************/
+
+=> Popup şeklinde form oluşturduk.
+
+=> Sol tarafa panel ekledik ve panel içerisine ImageSlider ekledik.
+
+=>ImageSlider'da ok tuşuna basarak Dock in Container kısmı seçilerek panel boyutu kadar slider oluşturduk ve resimler ekledik
+
+****************************************************************************
+
+/************************** FrmAraçlar Formu ******************************/
+
+=> Döviz kurlarını eklemek için Toolbox kısmından web browser sürükleyip bırakılır.
+
+=> https://www.tcmb.gov.tr/kurlar/today.xml adresini kopyala ve FrmKurlar formunun load kısmına kodla.
+
+=> Youtube sayfasına yönlendirme yapmak için FrmYoutbe formuna toolbox içerisinden WebBrowser sürekle bırak ve load kısmına aşağıdaki kodu yaz.
+	webBrowser1.Navigate("https://www.youtube.com");
+
+=> Bilgisayardaki hesap makinesini açmak için Form1.cs design içerisindeki Hesap Makinesi butonu kısmına aşağıdaki kodu yapıştır.
+	
+	 System.Diagnostics.Process.Start("Calc.exe");
+
+=> Bilgisayardaki word programını açmak için Form1.cs design içerisindeki Word butonu kısmına aşağıdaki kodu yapıştır
+
+    System.Diagnostics.Process.Start("winword");
+
+=> Excel programını açmak için Form1.cs design içerisindeki Excel butonu kısmına 
+            
+	System.Diagnostics.Process.Start("excel");
+
+*****************************************************************************
+
+/********************* FrmUrunSatis Formu ************************************/
+
+=> Ürün Hareket tablosu kullanılarak ürünün satışının yapılması sağlandı
+
+*****************************************************************************
+
+/************************** QR Kod Oluşturma **************************/
+
+=> Nuget üzerinden MessagingToolkit.QRCode eklentisini indir.
+
+=> FrmQRCode formuna pictureEdit ekle 
+
+=> FrmQRCode.cs içerisine qr kodun kütüphenesini ekle
+using MessagingToolkit.QRCode.Codec; //qr kod kütüphanesi
+
+***************************************************************************
+
+/**************************** FrmRaporlar *********************************/
+
+=> FrmRaporlar formu çalıştırıldıktan sonra aşağıdaki işlemler yapılır
+
+=> Toolbox ReportDesigner içerinden eklenir /New report tıklanır ve gerekli eklemeler sihirbaz üzerinden yapılır 
+
+***************************************************************************
+
+/********************** FrmAnaSayfa ****************************************/
+
+=> Kategori-Ürün groupcontrol içerisinde kategorideki ürünlerin adet miktarını getirmek için isteğe bağlı olarak aşağıdaki procedure'yi tanımladık
+
+--her kategoride kaç ürün bulunduğunu getiren procedure tanımladık
+CREATE PROCEDURE urunkategori
+AS
+Select TBLKATEGORI.AD, COUNT(TBLURUN.AD) AS 'ADET' 
+from TBLURUN 
+INNER JOIN TBLKATEGORI ON TBLKATEGORI.ID=TBLURUN.KATEGORI
+Group By TBLKATEGORI.Ad 
+Order By ADET
+
+--procedure'yi çağırdık
+Execute urunkategori
+
+************************************************************************
+
+Not: En fazla ürüne sahip kategoriyi getiren procedure
+
+--en fazla ürüne sahip kategori getiren procedure
+CREATE PROCEDURE makskategoriurun
+AS
+Select TOP 1 TBLKATEGORI.AD 
+from TBLURUN 
+INNER JOIN TBLKATEGORI ON TBLKATEGORI.ID=TBLURUN.KATEGORI
+Group By TBLKATEGORI.Ad 
+Order By COUNT(*) DESC
+
+Not: en fazla ürünü olan markayı getiren procedure FrmMarka formu için
+--en fazla ürünü olan markayı getiren procedure
+CREATE PROCEDURE maksurunmarka
+AS
+Select Top 1 MARKA from TBLURUN
+Group By MARKA
+Order By COUNT(*) DESC 
+
+NOT: satılan ürünün adetine göre stokğu azaltan trigger
+
+---- satılan ürünün adetine göre stokğu azaltan trigger
+Create Trigger STOKAZALT
+On TBLURUNHAREKET
+After Insert
+As
+DECLARE @URUN int
+DECLARE @ADET int
+SELECT @URUN=URUN,@ADET=ADET FROM inserted
+UPDATE TBLURUN SET STOK=STOK-@ADET WHERE ID=@URUN
